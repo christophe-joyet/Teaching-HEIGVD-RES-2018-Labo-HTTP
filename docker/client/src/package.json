@@ -7,8 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Olivier Nicole",
+  "modified by": "Christophe Joyet",
   "contributors": [
-    "Lionel Nanchen"
+    "Patrick Neto"
   ],
   "license": "ISC",
   "dependencies": {
