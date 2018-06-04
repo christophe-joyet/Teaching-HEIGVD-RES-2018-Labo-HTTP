@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Olivier Nicole",
+  "author": "Christophe Joyet",
   "contributors": [
-    "Lionel Nanchen"
+    "Patrick Neto"
   ],
   "license": "ISC",
   "dependencies": {
