@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Christophe Joyet",
+  "author": "Olivier Nicole",
+  "modified by": "Christophe Joyet"
   "contributors": [
     "Patrick Neto"
   ],
