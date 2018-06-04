@@ -4,7 +4,7 @@ var moment = require('moment');
 var bodyParser = require('body-parser');
 require('body-parser-xml')(bodyParser); //add middleware
 var express = require('express');
-var srv = express();
+var srv = express(); //package to use specifics method
 
 var diff = 0;
 
@@ -12,58 +12,59 @@ srv.use(bodyParser.urlencoded({ extended: false }));
 srv.use(bodyParser.json());
 srv.use(bodyParser.xml());
 
-console.log("Waiting connection on port : " + protocol.PORT);
+console.log("Waiting connection on port : " + protocol.PORT); //display number of port where server listen
 
-//when someone get /, return the current time
-srv.get('/', (request, response) => {
-    console.log("GET ");
+//server wait a client sends a GET
+srv.get('/', (request, response) => { //if the header begin by "GET /"
+    console.log("GET detected ");
 
-    switch(request.headers['accept']) {
+    //we go check the fields "accept" from the header and return into response some json or html or xml
+    //accept = type of return
+    switch(request.headers['accept']) { 
         case 'application/json':
-            console.log("content-type -> json");
+            console.log("found type -> json");
+            //write in the field "body" the current time
             response.json({
                 "Current time": moment().add(diff).format('LTS')
             });
             break;
+            
         case 'text/html':
-            console.log("content-type -> html");
+            //return just a text
+            console.log("found type -> html");
             response.send("<html>\n" +
-                "<header></header>\n" +
-                "\t<body>\n" +
-                "\t\t<div>" + moment().add(diff).format('LTS') + "</div>\n" +
-                "\t</body>\n" +
+                "<header>This is HTML</header>\n" +
                 "</html>");
             break;
+            
         case 'text/xml':
-            console.log("content-type -> xml");
+            //return the current date
+            console.log("found type -> xml");
             response.send("<time>" + moment().add(diff).format('LTS') + "</time>");
             break;
         default:
-            console.log("GET : content type not recognised");
+            console.log("GET_ERROR : not found a correct type");
     }
 });
 
-//when someone get /, return the current time
+//when someone post /, return the current time
 srv.post('/', (request, response) => {
-    console.log("POST ");
+    console.log("POST detected ");
 
-    //traitement de la date
-    postDate = moment(request.body.time);
-    currentDate = moment();
-    diff = postDate.diff(currentDate);
-
+    //search type in field "content-type" of the header
+    //content-type = type of body
     switch(request.headers['content-type']) {
 
         case 'application/json':
             console.log("content-type -> json");
             response.json({
-                "Current-time": moment().add(diff).format('LTS')
+                "Content-Type = JSON, our answer in JSON"
             });
             break;
         case 'text/xml':
             console.log("content-type -> xml");
             response.json({
-                "Current-time": moment().add(diff).format('LTS')
+               "Content-Type = XML, our answer in JSON"
             });
             break;
         default:
